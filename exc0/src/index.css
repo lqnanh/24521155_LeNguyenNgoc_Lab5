@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root,
 [data-theme='dark'] {
   --bg: #121212;
@@ -23,13 +29,27 @@
 
 body {
   margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
   font-family: system-ui, sans-serif;
   background-color: var(--bg);
   color: var(--text);
 }
 
+img {
+  max-width: 100%;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+}
+
 .app {
-  padding: 24px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -43,9 +63,12 @@ body {
   gap: 8px;
 }
 
-.btn {
+button {
   min-width: 44px;
   min-height: 44px;
+}
+
+.btn {
   padding: 0 16px;
   font-size: 1rem;
   border: 1px solid var(--btn-border);
@@ -71,7 +94,9 @@ body {
 }
 
 .evidence {
+  container-type: inline-size;
   width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -81,13 +106,25 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: 1fr;
   gap: 16px;
 }
 
+@container (min-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .card {
+  height: 100%;
   background-color: var(--card-bg);
   border: 1px solid var(--btn-border);
   border-radius: 8px;
@@ -106,10 +143,18 @@ body {
   margin: 0;
   padding: 12px;
   font-size: 1rem;
+  overflow-wrap: anywhere;
 }
 
 .pagination {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .app {
+    padding: 24px;
+  }
 }
